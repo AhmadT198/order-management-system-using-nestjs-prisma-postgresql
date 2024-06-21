@@ -1,12 +1,12 @@
 // prisma/seed.ts
 import { PrismaClient } from '@prisma/client';
 
-
+import * as bcrypt from 'bcrypt';
 // initialize Prisma Client
 const prisma = new PrismaClient();
 
 async function main() {
-    const pword = "some hash"
+    const pword = bcrypt.hashSync("password",bcrypt.genSaltSync(10));
   // create two dummy recipes
   const user1 = await prisma.user.upsert({
     where: {email: 'dummy1@test.com'},
