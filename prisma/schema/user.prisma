@@ -1,0 +1,11 @@
+model user {
+    userId          Int      @id @default(autoincrement())
+    name            String
+    email           String   @unique
+    password        String
+    address         String
+    orders          Order[]
+    cart            Cart?
+    createdAt       DateTime @default(now())
+    updatedAt       DateTime @updatedAt
+}

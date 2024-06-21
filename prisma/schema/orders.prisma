@@ -1,0 +1,8 @@
+model Order {
+    orderId     Int      @id @default(autoincrement())
+    orderDate   DateTime @default(now())
+    status      String
+    products    OrderProducts[]
+    user        user    @relation(fields: [userId], references: [userId])
+    userId      Int 
+}
