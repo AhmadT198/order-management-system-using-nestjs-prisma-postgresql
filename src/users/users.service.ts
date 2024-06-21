@@ -3,14 +3,15 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { SignInDto } from './dto/sign-in.dto';
 import { UsersRepository } from './users.repository';
-import bcrypt from 'bcryptjs';
-import jwt from 'jsonwebtoken';
+import * as bcrypt from 'bcrypt';
+import { JwtService } from '@nestjs/jwt';
 
 @Injectable()
 export class UsersService {
-  constructor(private repo: UsersRepository) {}
-
-
+  constructor(
+    private repo: UsersRepository,
+    private jwtService: JwtService
+  ) {}
 
   async signIn(signInDto: SignInDto){
     const {email, password} = signInDto;
@@ -20,9 +21,11 @@ export class UsersService {
     const validPassword = await bcrypt.compare(password, user.password);
     if(!validPassword) throw new BadRequestException('Email or Password are invalid.');
 
-    const token = jwt.sign({userId:user.userId},"secretKey");
-    return token;
+    return {
+      access_token: await this.jwtService.signAsync({userId:user.userId})
+    };
   }
+
   create(createUserDto: CreateUserDto) {
     return 'This action adds a new user';
   }

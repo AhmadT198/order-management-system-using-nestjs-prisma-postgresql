@@ -1,0 +1,32 @@
+GET http://localhost:3000/api/carts/2
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIsImlhdCI6MTcxOTAxMDQxNiwiZXhwIjoxNzE5MDE0MDE2fQ.li22tbPDsYvrwaYgYKegpy71srEyrgXo6laA027_1Ys
+
+### Sign in as a user to get the token
+POST http://localhost:3000/api/users/sign-in
+Content-Type: application/json
+
+{
+    "email": "dummy2@test.com",
+    "password": "password"
+}
+
+### Add to cart
+POST http://localhost:3000/api/carts/add
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIsImlhdCI6MTcxOTAxMDQxNiwiZXhwIjoxNzE5MDE0MDE2fQ.li22tbPDsYvrwaYgYKegpy71srEyrgXo6laA027_1Ys
+Content-Type: application/json
+
+{
+    "productId": 1,
+    "quantity": 1
+}
+
+
+### Update Cart
+PUT http://localhost:3000/api/carts/update
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIsImlhdCI6MTcxOTAxMDQxNiwiZXhwIjoxNzE5MDE0MDE2fQ.li22tbPDsYvrwaYgYKegpy71srEyrgXo6laA027_1Ys
+Content-Type: application/json
+
+{
+    "productId": 1,
+    "quantity": 1
+}

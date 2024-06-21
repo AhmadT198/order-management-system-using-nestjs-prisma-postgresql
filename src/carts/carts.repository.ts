@@ -1,6 +1,7 @@
-import { Injectable, NotFoundException } from "@nestjs/common";
+import { BadRequestException, Injectable, NotFoundException } from "@nestjs/common";
 import { PrismaService } from "src/prisma/prisma.service";
-import { AddToCartDto } from "./dto/add-to-cart.dto";
+import { AddToCartRequest } from "./dto/addToCartRequest.dto";
+import { CartItemDto } from "./dto/cartItem.dto";
 
 
 @Injectable()
@@ -8,10 +9,10 @@ export class CartsRepository {
     constructor(private prisma : PrismaService){}
 
 
-    async addToCart(addToCartDto: AddToCartDto){
+    async addToCart(cartDto: CartItemDto){
 
         // Check if cart exists
-        const {userId, productId, quantity} = addToCartDto;
+        const {userId, productId, quantity} = cartDto;
         // Check if user exits
         const user = await this.prisma.user.findUnique({where:{userId}});
         if(!user) throw new NotFoundException("User does not exist.");
@@ -71,15 +72,45 @@ export class CartsRepository {
         });
         const cartItems = this.prisma.cartProducts.findMany({
             where:{cartId: cart.cartId},
-            include:{
-                product: true
-            },
+            select : {
+                productId: true,
+                quantity : true,
+                product: {
+                    select : {
+                        name: true,
+                        price: true,
+                        stock: true
+                    }
+                }
+            }
         })
         return cartItems
     }
 
-    async updateCart() {
+    async updateCart(cardDto : CartItemDto) {
+        const {userId, productId, quantity} = cardDto;
 
+        const cart = await this.prisma.cart.findUnique({
+            where: { userId }
+        });
+        const cartItem = await this.prisma.cartProducts.findUnique({where:{
+            cartId_productId:{
+                cartId: cart.cartId,
+                productId
+            }
+        }})
+        if(!cartItem) throw new BadRequestException();
+        return this.prisma.cartProducts.update({
+            where:{
+                cartId_productId:{
+                    cartId: cart.cartId,
+                    productId
+                }
+            },
+            data:{
+                quantity
+            }
+        })
     }
 
     async deleteCart() {

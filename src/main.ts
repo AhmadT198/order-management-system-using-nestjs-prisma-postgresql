@@ -10,6 +10,17 @@ async function bootstrap() {
   const config = new DocumentBuilder()
     .setTitle('OMS API') 
     .setDescription('API for managing orders.') 
+    .addBearerAuth(
+      {
+        type: 'http',
+        scheme: 'bearer',
+        bearerFormat: 'JWT',
+        description: 'Input your JWT token',
+        name: 'Authorization',
+        in: 'header',
+      },
+      'bearer',
+    )
     .setVersion('0.1') 
     .build();
 
