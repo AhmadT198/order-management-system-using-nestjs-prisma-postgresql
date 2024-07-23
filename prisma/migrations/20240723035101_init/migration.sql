@@ -22,9 +22,20 @@ CREATE TABLE "Order" (
     "orderId" SERIAL NOT NULL,
     "orderDate" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "status" TEXT NOT NULL,
+    "total" DOUBLE PRECISION NOT NULL,
     "userId" INTEGER NOT NULL,
 
     CONSTRAINT "Order_pkey" PRIMARY KEY ("orderId")
+);
+
+-- CreateTable
+CREATE TABLE "OrderProducts" (
+    "productId" INTEGER NOT NULL,
+    "orderId" INTEGER NOT NULL,
+    "quantity" INTEGER NOT NULL,
+    "total" DOUBLE PRECISION NOT NULL,
+
+    CONSTRAINT "OrderProducts_pkey" PRIMARY KEY ("productId","orderId")
 );
 
 -- CreateTable
@@ -38,15 +49,6 @@ CREATE TABLE "Product" (
     "updatedAt" TIMESTAMP(3) NOT NULL,
 
     CONSTRAINT "Product_pkey" PRIMARY KEY ("productId")
-);
-
--- CreateTable
-CREATE TABLE "OrderProducts" (
-    "productId" INTEGER NOT NULL,
-    "orderId" INTEGER NOT NULL,
-    "quantity" INTEGER NOT NULL,
-
-    CONSTRAINT "OrderProducts_pkey" PRIMARY KEY ("productId","orderId")
 );
 
 -- CreateTable
