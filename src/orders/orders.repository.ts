@@ -46,4 +46,13 @@ export class OrdersRepository {
       });
     });
   }
+
+  async getOrderById(orderId: number) {
+    return await this.prisma.order.findUnique({
+      where: { orderId },
+      include: {
+        products: true,
+      },
+    });
+  }
 }
