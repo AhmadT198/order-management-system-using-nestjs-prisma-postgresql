@@ -14,11 +14,12 @@ import { CreateOrderDto } from './dto/create-order.dto';
 import { UpdateOrderDto } from './dto/update-order.dto';
 import { AuthUser } from '../users/user.decorator';
 import { AuthGuard } from '../users/auth.guard';
-import { ApiBearerAuth } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { UpdateOrderStatusDto } from './dto/update-order-status.dto';
 
 @Controller('api/orders')
 @ApiBearerAuth('bearer')
+@ApiTags('Orders')
 export class OrdersController {
   constructor(private readonly ordersService: OrdersService) {}
 

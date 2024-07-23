@@ -17,7 +17,7 @@ import { CreateCartDto } from './dto/create-cart.dto';
 import { UpdateCartDto } from './dto/updateCartRequest';
 import { AddToCartRequest } from './dto/addToCartRequest.dto';
 import { AuthGuard } from '../users/auth.guard';
-import { ApiBearerAuth, ApiBody } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiBody, ApiTags } from '@nestjs/swagger';
 import { AuthUser } from '../users/user.decorator';
 import { CartItemDto } from './dto/cartItem.dto';
 import { DeleteItemFromCartDto } from './dto/deleteItemFromCart.dto';
@@ -25,6 +25,7 @@ import { UpdateCartItemQuantityDto } from './dto/updateCartItemQuantity.dto';
 
 @Controller('api/carts')
 @ApiBearerAuth('bearer')
+@ApiTags('Carts')
 export class CartsController {
   constructor(private readonly cartsService: CartsService) {}
 
