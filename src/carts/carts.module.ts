@@ -21,5 +21,6 @@ import { ProductsRepository } from 'src/products/products.repository';
     ProductsRepository,
   ],
   imports: [PrismaModule, UsersModule, ProductsModule],
+  exports:[CartsService, CartsRepository]
 })
 export class CartsModule {}
