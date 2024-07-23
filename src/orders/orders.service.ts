@@ -29,7 +29,19 @@ export class OrdersService {
     if (!order) throw new BadRequestException('Order not found.');
     return order;
   }
-  
+
+  async updateOrderStatus(orderId: number, status: string) {
+    if (
+      status !== 'pending' &&
+      status !== 'completed' &&
+      status !== 'cancelled'
+    )
+      throw new BadRequestException('Invalid status.');
+    const order = await this.repo.getOrderById(orderId);
+    if (!order) throw new BadRequestException('Order not found.');
+    
+    return await this.repo.updateOrderStatus(orderId, status);
+  }
   update(id: number, updateOrderDto: UpdateOrderDto) {
     return `This action updates a #${id} order`;
   }
