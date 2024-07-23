@@ -7,13 +7,15 @@ import { JwtModule } from '@nestjs/jwt';
 
 @Module({
   controllers: [UsersController],
-  providers: [UsersService,UsersRepository],
-  imports:[PrismaModule,
+  providers: [UsersService, UsersRepository],
+  imports: [
+    PrismaModule,
     JwtModule.register({
       global: true,
-      secret: "secretKey",
-      signOptions: {expiresIn: '60m'}
-    })
-  ]
+      secret: 'secretKey',
+      signOptions: { expiresIn: '60m' },
+    }),
+  ],
+  exports: [UsersService],
 })
 export class UsersModule {}
