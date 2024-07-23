@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { PrismaService } from 'src/prisma/prisma.service';
+import { PrismaService } from '../prisma/prisma.service';
 
 @Injectable()
 export class UsersRepository {
@@ -17,5 +17,9 @@ export class UsersRepository {
     return await this.prisma.user.findUnique({
       where: { userId },
     });
+  }
+
+  async getAllUsers() {
+    return await this.prisma.user.findMany();
   }
 }
