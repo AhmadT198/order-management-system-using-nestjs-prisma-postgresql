@@ -55,4 +55,11 @@ export class OrdersRepository {
       },
     });
   }
+
+  async updateOrderStatus(orderId: number, status: string) {
+    return await this.prisma.order.update({
+      where: { orderId },
+      data: { status },
+    });
+  }
 }

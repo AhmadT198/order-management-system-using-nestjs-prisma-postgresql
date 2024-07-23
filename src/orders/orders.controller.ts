@@ -7,6 +7,7 @@ import {
   Param,
   Delete,
   UseGuards,
+  Put,
 } from '@nestjs/common';
 import { OrdersService } from './orders.service';
 import { CreateOrderDto } from './dto/create-order.dto';
@@ -14,6 +15,7 @@ import { UpdateOrderDto } from './dto/update-order.dto';
 import { AuthUser } from 'src/users/user.decorator';
 import { AuthGuard } from 'src/users/auth.guard';
 import { ApiBearerAuth } from '@nestjs/swagger';
+import { UpdateOrderStatusDto } from './dto/update-order-status.dto';
 
 @Controller('api/orders')
 @ApiBearerAuth('bearer')
@@ -31,10 +33,17 @@ export class OrdersController {
   findOne(@Param('orderId') orderId: string) {
     return this.ordersService.getOrderById(+orderId);
   }
-  // @Patch(':id')
-  // update(@Param('id') id: string, @Body() updateOrderDto: UpdateOrderDto) {
-  //   return this.ordersService.update(+id, updateOrderDto);
-  // }
+  @Put(':orderId/status')
+  @UseGuards(AuthGuard)
+  update(
+    @Param('orderId') orderId: string,
+    @Body() updateOrderStatusDto: UpdateOrderStatusDto,
+  ) {
+    return this.ordersService.updateOrderStatus(
+      +orderId,
+      updateOrderStatusDto.status,
+    );
+  }
 
   // @Delete(':id')
   // remove(@Param('id') id: string) {
