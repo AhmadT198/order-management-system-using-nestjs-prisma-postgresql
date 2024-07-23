@@ -15,7 +15,7 @@ import { AuthUser } from 'src/users/user.decorator';
 import { AuthGuard } from 'src/users/auth.guard';
 import { ApiBearerAuth } from '@nestjs/swagger';
 
-@Controller('orders')
+@Controller('api/orders')
 @ApiBearerAuth('bearer')
 export class OrdersController {
   constructor(private readonly ordersService: OrdersService) {}
@@ -26,16 +26,11 @@ export class OrdersController {
     return this.ordersService.createOrder(user.userId);
   }
 
-  // @Get()
-  // findAll() {
-  //   return this.ordersService.findAll();
-  // }
-
-  // @Get(':id')
-  // findOne(@Param('id') id: string) {
-  //   return this.ordersService.findOne(+id);
-  // }
-
+  @Get(':orderId')
+  @UseGuards(AuthGuard)
+  findOne(@Param('orderId') orderId: string) {
+    return this.ordersService.getOrderById(+orderId);
+  }
   // @Patch(':id')
   // update(@Param('id') id: string, @Body() updateOrderDto: UpdateOrderDto) {
   //   return this.ordersService.update(+id, updateOrderDto);

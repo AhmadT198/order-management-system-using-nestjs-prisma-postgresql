@@ -24,14 +24,12 @@ export class OrdersService {
     return this.repo.createOrder(userId, productsList);
   }
 
-  findAll() {
-    return `This action returns all orders`;
+  async getOrderById(orderId: number) {
+    const order = await this.repo.getOrderById(orderId);
+    if (!order) throw new BadRequestException('Order not found.');
+    return order;
   }
-
-  findOne(id: number) {
-    return `This action returns a #${id} order`;
-  }
-
+  
   update(id: number, updateOrderDto: UpdateOrderDto) {
     return `This action updates a #${id} order`;
   }
