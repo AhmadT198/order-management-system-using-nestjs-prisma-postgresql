@@ -1,11 +1,27 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { CreateOrderDto } from './dto/create-order.dto';
 import { UpdateOrderDto } from './dto/update-order.dto';
+import { OrdersRepository } from './orders.repository';
+import { CartsService } from 'src/carts/carts.service';
 
 @Injectable()
 export class OrdersService {
-  create(createOrderDto: CreateOrderDto) {
-    return 'This action adds a new order';
+  constructor(
+    private repo: OrdersRepository,
+    private cartsService: CartsService,
+  ) {}
+  async createOrder(userId: number) {
+    const cartItems = await this.cartsService.findCartItemsByUserId(userId);
+    if (cartItems.length === 0) throw new BadRequestException('Cart is Empty.');
+
+    const productsList = cartItems.map((cartItem) => {
+      return {
+        productId: cartItem.productId,
+        quantity: cartItem.quantity,
+        price: cartItem.product.price,
+      };
+    });
+    return this.repo.createOrder(userId, productsList);
   }
 
   findAll() {
