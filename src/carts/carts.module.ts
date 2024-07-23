@@ -1,14 +1,14 @@
 import { Module } from '@nestjs/common';
 import { CartsService } from './carts.service';
 import { CartsController } from './carts.controller';
-import { PrismaModule } from 'src/prisma/prisma.module';
+import { PrismaModule } from '../prisma/prisma.module';
 import { CartsRepository } from './carts.repository';
-import { UsersService } from 'src/users/users.service';
-import { UsersModule } from 'src/users/users.module';
-import { ProductsModule } from 'src/products/products.module';
-import { ProductsService } from 'src/products/products.service';
-import { UsersRepository } from 'src/users/users.repository';
-import { ProductsRepository } from 'src/products/products.repository';
+import { UsersService } from '../users/users.service';
+import { UsersModule } from '../users/users.module';
+import { ProductsModule } from '../products/products.module';
+import { ProductsService } from '../products/products.service';
+import { UsersRepository } from '../users/users.repository';
+import { ProductsRepository } from '../products/products.repository';
 
 @Module({
   controllers: [CartsController],

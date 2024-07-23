@@ -2,7 +2,7 @@ import { BadRequestException, Injectable } from '@nestjs/common';
 import { CreateOrderDto } from './dto/create-order.dto';
 import { UpdateOrderDto } from './dto/update-order.dto';
 import { OrdersRepository } from './orders.repository';
-import { CartsService } from 'src/carts/carts.service';
+import { CartsService } from '../carts/carts.service';
 
 @Injectable()
 export class OrdersService {

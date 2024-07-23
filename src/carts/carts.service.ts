@@ -8,8 +8,8 @@ import { UpdateCartDto } from './dto/updateCartRequest';
 import { CartsRepository } from './carts.repository';
 import { AddToCartRequest } from './dto/addToCartRequest.dto';
 import { CartItemDto } from './dto/cartItem.dto';
-import { UsersService } from 'src/users/users.service';
-import { ProductsService } from 'src/products/products.service';
+import { UsersService } from '../users/users.service';
+import { ProductsService } from '../products/products.service';
 
 @Injectable()
 export class CartsService {

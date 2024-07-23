@@ -12,8 +12,8 @@ import {
 import { OrdersService } from './orders.service';
 import { CreateOrderDto } from './dto/create-order.dto';
 import { UpdateOrderDto } from './dto/update-order.dto';
-import { AuthUser } from 'src/users/user.decorator';
-import { AuthGuard } from 'src/users/auth.guard';
+import { AuthUser } from '../users/user.decorator';
+import { AuthGuard } from '../users/auth.guard';
 import { ApiBearerAuth } from '@nestjs/swagger';
 import { UpdateOrderStatusDto } from './dto/update-order-status.dto';
 
